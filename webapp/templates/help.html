@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>World Cup API reference</title>
+</head>
+<body>
+    <pre>REQUEST: /{year}/{team}/roster
+
+GET parameters
+    year & team (both necessary, no default) -- return only players whose
+        were on a given team in a given WC
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+player, sorted alphabetically by last name (and sorted alphabetically
+by first name when last names are equal). Each dictionary in this
+list will have the following fields.
+
+   surname -- (TEXT) the player's last or family name
+   given_name -- (TEXT) the author's given name
+   id -- (INTEGER) the player's id
+
+EXAMPLE(S):
+    /15/11/roster
+    (the 15 is in reference to Bolivia (can find from /Allcups/teams/) and the 11 is the 1994 World Cup (can find from /Allcups/))
+
+[{"surname": " BALDIVIESO", "given_name": " Julio", "id": 4335}, {"surname": " BORJA", "given_name": " Carlos", "id": 4325}, {"surname": " CASTILLO", "given_name": " Ramiro", "id": 4354}, {"surname": " CRISTALDO", "given_name": " Luis", "id": 4329}, {"surname": " ETCHEVERRY", "given_name": " Marco", "id": 4342}, {"surname": " MELGAR", "given_name": " Milton", "id": 4326}, {"surname": " MORENO", "given_name": " Jaime", "id": 4343}...]
+
+REQUEST: /{years}/teams/
+
+GET parameters
+      years (necessary, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of teams from
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+team in a user-given World Cup. Each dictionary in this
+list will have the following fields.
+
+   year -- (INTEGER) the year of the world cup
+   team_abbreviation -- (TEXT) 3-letter abbreviation of country
+   team_name -- (TEXT) country name
+   wc_id -- (INTEGER) the id of the world cup
+   team_id -- (INTEGER) the id of the team
+
+EXAMPLE(S):
+    /1930/teams/
+
+[{"year": 1930, "team_abbreviation": "BEL", "team_name": "Belgium", "wc_id": 1, "team_id": 4}, {"year": 1930, "team_abbreviation": "PER", "team_name": "Peru", "wc_id": 1, "team_id": 8}, {"year": 1930, "team_abbreviation": "PAR", "team_name": "Paraguay", "wc_id": 1, "team_id": 12} ...]
+
+REQUEST: /Allcups/{team}/cups/
+
+GET parameters
+    team (necessary, no default) -- return only all the World Cups
+        that a specific team played in
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+World Cup, sorted by year.Each dictionary in this
+list will have the following fields.
+
+   wc_year -- (INTEGER) the year of the WC
+   wc_location -- (TEXT) location of the WC
+   wc_id -- (INTEGER) WC id
+
+EXAMPLE(S):
+    /Allcups/19/cups/
+    (19 refers to Sweden, can look that up in /Allcups/teams/)
+
+[{"wc_year": 1934, "wc_location": "Italy", "id": 2}, {"wc_year": 1938, "wc_location": "France", "id": 3}, {"wc_year": 1950, "wc_location": "Brazil", "id": 4}, {"wc_year": 1958, "wc_location": "Sweden", "id": 6}, {"wc_year": 1970, "wc_location": "Mexico", "id": 9}, ...]
+
+REQUEST: /Allcups/attendance
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+World Cup, sorted by year. Each dictionary in this
+list will have the following fields.
+
+   year -- (INTEGER) the year each World Cup was help
+   attendance -- (TEXT) the amount of people present at each World Cup
+
+REQUEST: /Allcups/teams/
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+team that has competed in a World Cup, sorted alphabetically. Each dictionary in this
+list will have the following fields.
+
+   team_abbreviation -- (TEXT) the 3-letter abbreviation of the country
+   team_name -- (TEXT) country name
+   teams_id -- (TEXT) the id of the team (from db)
+
+REQUEST: /Allcups/
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+World Cup, sorted by year. 
+
+   year -- (INTEGER) year it was held
+   location -- (TEXT) location it was held
+
+   REQUEST: /gold/teams/
+
+   GET parameters
+         years (optional, no default) -- the years of the world cups (which you search for at the homepage). Allows you to see teams from specific years
+   
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   team in a user-given World Cup. Each team displayed in the results table represents a team whos
+   got a gold medal in the specified year(s). Each dictionary in this
+   list will have the following fields.
+   
+      Worldcup -- (INTEGER) the year of the world cup
+      Abbreviation -- (TEXT) 3-letter abbreviation of country
+      Team Name -- (TEXT) country name
+
+   EXAMPLE(S):
+       /gold/teams/?years=1938
+     (1930 is the World Cup year)
+   
+   [{"Worldcup": 1930, "Abbreviation": "BEL", "Team Name": "Belgium"]
+   
+   REQUEST: /matches/{years}/{teams}
+
+   GET parameters
+        years (necessary, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of matches from
+        teams (necessary, all teams) -- the team the user has chosen
+
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   match in a user-given World Cup and team. If no team is given, then the defualt is all teams.
+    Each dictionary in this list will have the following fields.
+   
+      Worldcup -- (INTEGER) the year of the match
+      date -- (TEXT) date match took place
+      stadium -- (TEXT) match stadium location
+      city -- (TEXT) match city location
+      home -- (TEXT) home team
+      hscore -- (INTEGER) home team score
+      away -- (TEXT) away team
+      ascore -- (INTEGER) away team score
+      
+   EXAMPLE(S):
+       /matches/1930/Bolivia
+   
+   [{"Worldcup": 1930, "date": "1930-07-17", "stadium": "Parque Central", "city": Montevideo, "home": Yugoslavia, "hscore": 4, "away": Bolivia, "ascore": 0}...] 
+   
+   REQUEST: /silver/teams
+
+   GET parameters
+        years (not necessary, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of teams from
+        
+
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   team in specific worlducp(s). Each list will have information on second place winners.
+    Each dictionary in this list will have the following fields.
+
+      Abbreviation -- (INTEGER) the abbreviation of the team
+      Team Name -- (TEXT) Full team name
+      Worldcup -- (INTEGER) Worldcup year
+     
+      
+   EXAMPLE(S):
+       /silver/teams
+   [{"Worldcup": 1930, "Team Name": Sweden "Abbreviation": SWE}...] 
+
+   REQUEST: /bronze/teams
+
+   GET parameters
+        years (not necessary, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of teams from
+        
+
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   team in specific worlducp(s). Each list will have information on third place winners.
+    Each dictionary in this list will have the following fields.
+
+      Abbreviation -- (INTEGER) the abbreviation of the team
+      Team Name -- (TEXT) Full team name
+      Worldcup -- (INTEGER) Worldcup year
+     
+      
+   EXAMPLE(S):
+       /bronze/teams
+   [{"Worldcup": 1930, "Team Name": Argentina "Abbreviation": ARG}...] 
+
+
+   REQUEST: /medals/{year}/
+
+   GET parameters
+        year (necessary, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of teams from
+        
+
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   first, second, and thrid place finishers in the respective worldcup year. 
+   Each dictionary in this list will have the following fields.
+
+      wc_id -- (INTEGER) world cup id
+      firstplace -- (TEXT) Full team of first placers
+      year -- (INTEGER) Worldcup year
+      secoundplace -- (TEXT) Full team of seond placers
+      thirdplace -- (TEXT) Full team of third placers
+     
+      
+   EXAMPLE(S):
+   /medals/1930/
+   [{"year": 1930, "firstplace": Uruguay "secoundplace": Argentina "thirdplace": USA }] 
+
+   REQUEST: /allmatches/{year}/
+
+   GET parameters
+        years (necessary, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of matches from
+        teams (necessary, all teams) -- the team the user has chosen
+
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   match in a user-given World Cup and team. If no team is given, then the defualt is all teams.
+    Each dictionary in this list will have the following fields.
+
+      Worldcup -- (INTEGER) the year of the match
+      date -- (TEXT) date match took place
+      stadium -- (TEXT) match stadium location
+      city -- (TEXT) match city location
+      home_team -- (TEXT) home team
+      home_score -- (INTEGER) home team score
+      away_team -- (TEXT) away team
+      away_score -- (INTEGER) away team score
+      stage -- (TEXT) area of worldcup
+      home_first_half_score -- (TEXT) home team score in first half
+      home_second_half_score -- (TEXT) home team score in second half
+      away_first_half_score -- (TEXT) away team score in first half
+      away_second_half_score -- (TEXT) away team score in second half
+      
+   EXAMPLE(S):
+   /allmatches/1930/
+   
+   [{"Worldcup": 1930, "date": "1930-07-17", "stadium": "Parque Central", "city": Montevideo, "home_team": Yugoslavia, "home_score": 4, "away_team": Bolivia, "away_score": 0}...] 
+   
+   REQUEST: /allmatches/goals
+
+   GET parameters
+        year (optional, all) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of teams from
+        team (optional, all) -- the team that a player is on
+        player (optional, all) -- the player we are getting
+
+   RESPONSE: a JSON list of dictionaries, each of which represents players with their scores.
+   Each dictionary in this list will have the following fields.
+
+      player_id -- (INTEGER) id of the player
+      surname -- (TEXT) lastname of player
+      year -- (INTEGER) Worldcup year
+      given_name -- (TEXT) first name of player
+      team -- (TEXT) abbreviation of Team
+      goals -- (INTEGER) Number of goals scored
+     
+      
+   EXAMPLE(S):
+   /allmatches/goals
+   [{"year": 1930, "given_name": guilermo "surname": stabile "team": ARG "goals": 123=8 }...]
+   
+   REQUEST: /worldcups/[allyears]/{teams}/
+
+   GET parameters
+        allyears (required, no default) -- the year of the World Cup (which you can look up with /Allcups/) that you want a list of teams from
+        teams (required, all) -- the team that that you wish to see
+
+   RESPONSE: a JSON list of dictionaries, each of which represents one
+   world cup based on the given get parameters.
+   Each dictionary in this list will have the following fields.
+   'Worldcup':row[2]}
+      Worldcup -- (INTEGER) Worldcup year
+      given_name -- (TEXT) first name of player
+
+     
+      
+   EXAMPLE(S):
+   /worldcups/1930/"all"/
+   [{"year": 1930}]
+
+</pre>
+</body>
+</html>
