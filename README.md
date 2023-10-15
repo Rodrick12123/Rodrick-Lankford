@@ -1,5 +1,10 @@
 # Rodrick-Lankford
 Website for obtaining data on World Cups
+The github pages does not work with this app, because the postgress server need to be initialize first.
+
+Future updates may include automatic initialization setup.
+
+More instructions on running the app will be available here at a later date.
 
 AUTHORS: Rodrick Lankford and Thea Traw
 
