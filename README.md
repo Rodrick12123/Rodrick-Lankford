@@ -4,11 +4,25 @@ The github pages does not work with this app, because the postgress server need 
 
 Future updates may include automatic initialization setup.
 
-More instructions on running the app will be available here at a later date.
 
 AUTHORS: Rodrick Lankford and Thea Traw
 
 DATA: Our data is about all of the World Cups from 1930-2014, and it includes data about teams, players, matches, and the World Cups themselves. 
+
+These steps will allow you to view the site:
+- Install PostgresSQL
+
+- Create your postgress datbase which will allow you to create your data tables.
+
+- Clone this repository and cd into the webapp. Run the following command in your linux terminal: "psql -U yourUserName yourDatabaseName < data.sql". "yourUserName" is the name you had chosen to set up your postgress, and "yourDatabaseName" is the name of the database you created.
+
+- Create a file called config.py and add the following lines of code.
+
+user = "yourUserName" 
+password = "yourPassword" 
+database = "yourDatabaseName"
+
+- In your terminal run this command: python3 app.py localhost 5000. Then, go to http://localhost:5000 to view our website.
 
 FEATURES CURRENTLY WORKING:
 - Can choose All Cups checkbox on home page and it takes you to a page where all of the teams that have competed in a World Cup are loaded in a dropdown
