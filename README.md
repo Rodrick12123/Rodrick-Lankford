@@ -1,6 +1,6 @@
 # Rodrick-Lankford
-Website for obtaining data on World Cups
-The github pages does not work with this app, because the postgress server need to be initialize first.
+Website for analyzing statistical data about World Cups
+The github pages hosting for this project is currently unavailable. However, details on cloning and running the program are available bellow.
 
 Future updates may include automatic initialization setup.
 
