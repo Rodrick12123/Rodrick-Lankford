@@ -1,5 +1,5 @@
-# Rodrick-Lankford and Thea Traw 
-Website for analyzing statistical data about World Cups
+
+This website was built for analyzing statistical data about World Cups
 The github pages hosting for this project is currently unavailable. However, details on cloning and running the program are available bellow.
 
 Future updates may include automatic initialization setup.
