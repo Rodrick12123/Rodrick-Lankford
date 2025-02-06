@@ -38,6 +38,4 @@ FEATURES NOT YET WORKING:
 - Queries to get the amount of medals a team has needs to be fixed
 - titles for pages do not work right now (except for one)
 
-Other notes:
-- without page titles, the navigation is more difficult, so if this might be helpful, here's the flow:
-[Homepage > World Cup Page (has a list of countries that have competed in any of the WCs selected on Homepage --> choose a country) > All time Team Page (has a list of WCs the team has competed in --> choose a WC) > One WC Team Page (has a list of the players on the roster at that World Cup)]
+
